@@ -1,6 +1,5 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Exception\NotImplementedException;
 use AdammBalogh\KeyValueStore\Exception\InternalException;
 use AdammBalogh\KeyValueStore\Exception\KeyAlreadyExistsException;
 use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
@@ -24,15 +23,10 @@ trait StringTrait
      */
     public function append($key, $value)
     {
-        try {
-            $storedValue = $this->get($key);
-            $this->set($key, $storedValue . $value);
+        $storedValue = $this->get($key);
+        $this->set($key, $storedValue . $value);
 
-            return strlen($storedValue . $value);
-
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
-        }
+        return strlen($storedValue . $value);
     }
 
     /**
@@ -59,19 +53,14 @@ trait StringTrait
      */
     public function decrementBy($key, $decrement)
     {
-        try {
-            $storedValue = $this->get($key);
-            if ( ! $this->isInteger($storedValue)) {
-                throw new InternalException('The stored value is not an integer.');
-            }
-
-            $this->set($key, (string)($storedValue - $decrement));
-
-            return $storedValue - $decrement;
-
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
+        $storedValue = $this->get($key);
+        if (!$this->isInteger($storedValue)) {
+            throw new InternalException('The stored value is not an integer.');
         }
+
+        $this->set($key, (string)($storedValue - $decrement));
+
+        return $storedValue - $decrement;
     }
 
     /**
@@ -85,7 +74,7 @@ trait StringTrait
     public function get($key)
     {
         try {
-            $storedValue = $this->client->get($key);
+            $storedValue = $this->getClient()->get($key);
             if ($storedValue === false) {
                 throw new KeyNotFoundException($key);
             }
@@ -134,19 +123,14 @@ trait StringTrait
      */
     public function incrementBy($key, $increment)
     {
-        try {
-            $storedValue = $this->get($key);
-            if ( ! $this->isInteger($storedValue)) {
-                throw new InternalException('The stored value is not an integer.');
-            }
-
-            $this->set($key, (string)($storedValue + $increment));
-
-            return $storedValue + $increment;
-
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
+        $storedValue = $this->get($key);
+        if (!$this->isInteger($storedValue)) {
+            throw new InternalException('The stored value is not an integer.');
         }
+
+        $this->set($key, (string)($storedValue + $increment));
+
+        return $storedValue + $increment;
     }
 
     /**
@@ -160,7 +144,7 @@ trait StringTrait
     public function set($key, $value)
     {
         try {
-            return $this->client->set($key, $value);
+            return $this->getClient()->set($key, $value);
         } catch (FlintstoneException $e) {
             throw new InternalException('', 0, $e);
         }
@@ -177,17 +161,12 @@ trait StringTrait
      */
     public function setIfNotExists($key, $value)
     {
-        try {
-            $storedValue = $this->client->get($key);
-            if ($storedValue !== false) {
-                throw new KeyAlreadyExistsException($key);
-            }
-
-            return $this->set($key, $value);
-
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
+        $storedValue = $this->getClient()->get($key);
+        if ($storedValue !== false) {
+            throw new KeyAlreadyExistsException($key);
         }
+
+        return $this->set($key, $value);
     }
 
     /**
@@ -197,6 +176,9 @@ trait StringTrait
      */
     private function isInteger($number)
     {
-        return is_integer($number + 0);
+        if (is_numeric($number) && is_integer($number + 0)) {
+            return true;
+        }
+        return false;
     }
 }

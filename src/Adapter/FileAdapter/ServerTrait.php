@@ -15,7 +15,7 @@ trait ServerTrait
     public function flush()
     {
         try {
-            return $this->client->flush();
+            return $this->getClient()->flush();
         } catch (FlintstoneException $e) {
             throw new InternalException('', 0, $e);
         }

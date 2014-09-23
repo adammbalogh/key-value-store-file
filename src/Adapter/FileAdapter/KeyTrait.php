@@ -21,7 +21,7 @@ trait KeyTrait
     public function delete($key)
     {
         try {
-            return $this->client->delete($key);
+            return $this->getClient()->delete($key);
         } catch (FlintstoneException $e) {
             throw new InternalException('', 0, $e);
         }
@@ -54,7 +54,7 @@ trait KeyTrait
      */
     public function getKeys()
     {
-        return $this->client->getKeys();
+        return $this->getClient()->getKeys();
     }
 
     /**
@@ -79,7 +79,7 @@ trait KeyTrait
     public function has($key)
     {
         try {
-            return $this->client->get($key) === false ? false : true;
+            return $this->getClient()->get($key) === false ? false : true;
         } catch (FlintstoneException $e) {
             throw new InternalException('', 0, $e);
         }

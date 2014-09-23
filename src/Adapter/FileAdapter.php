@@ -8,18 +8,22 @@ use Flintstone\FlintstoneDB;
 
 class FileAdapter extends AbstractAdapter
 {
-    use ClientTrait, KeyTrait, StringTrait, ServerTrait;
-
-    public function __construct(FlintstoneDB $client)
-    {
-        $this->client = $client;
+    use ClientTrait, KeyTrait, StringTrait, ServerTrait {
+        ClientTrait::getClient insteadof KeyTrait;
+        ClientTrait::getClient insteadof StringTrait;
+        ClientTrait::getClient insteadof ServerTrait;
     }
 
     /**
-     * @return FlintstoneDB
+     * @var \Flintstone\FlintstoneDB
      */
-    public function getClient()
+    protected $client;
+
+    /**
+     * @param FlintstoneDB $client
+     */
+    public function __construct(FlintstoneDB $client)
     {
-        return $this->client;
+        $this->client = $client;
     }
 }

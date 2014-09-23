@@ -14,11 +14,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "adammbalogh/key-value-store": "~0.1",
         "fire015/flintstone": "~1.5"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "~1.5",
-        "phpmd/phpmd": "~2.1"
+        "phpunit/phpunit": "~4.2.5",
+        "mikey179/vfsStream": "~1.4",
+        "satooshi/php-coveralls": "dev-master",
+        "squizlabs/php_codesniffer": "~1.5"
     },
     "autoload": {
         "psr-4": {

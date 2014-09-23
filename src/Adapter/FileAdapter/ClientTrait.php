@@ -3,7 +3,10 @@
 trait ClientTrait
 {
     /**
-     * @var \Flintstone\FlintstoneDB
+     * @return \Flintstone\FlintstoneDB
      */
-    protected $client;
+    public function getClient()
+    {
+        return $this->client;
+    }
 }
