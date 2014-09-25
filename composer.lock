@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ebb14bad4b815c38f11e479995b0aee",
+    "hash": "d89632c5183265f190dbd18130c94298",
     "packages": [
         {
             "name": "adammbalogh/key-value-store",
-            "version": "0.1.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adammbalogh/key-value-store.git",
-                "reference": "a0951c334cf4858bb0253bf66eda55b5e80e86c2"
+                "reference": "49f57eb1f8e5f9f6e7393149150375b9005f21b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/a0951c334cf4858bb0253bf66eda55b5e80e86c2",
-                "reference": "a0951c334cf4858bb0253bf66eda55b5e80e86c2",
+                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/49f57eb1f8e5f9f6e7393149150375b9005f21b6",
+                "reference": "49f57eb1f8e5f9f6e7393149150375b9005f21b6",
                 "shasum": ""
             },
             "require": {
@@ -28,6 +28,10 @@
                 "phpunit/phpunit": "~4.2.5",
                 "satooshi/php-coveralls": "dev-master",
                 "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "adammbalogh/key-value-store-file": "For using File storage",
+                "adammbalogh/key-value-store-redis": "For using Redis storage"
             },
             "type": "library",
             "autoload": {
@@ -55,7 +59,7 @@
                 "store",
                 "value"
             ],
-            "time": "2014-09-22 22:52:33"
+            "time": "2014-09-25 18:24:34"
         },
         {
             "name": "fire015/flintstone",

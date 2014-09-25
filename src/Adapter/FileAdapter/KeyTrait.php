@@ -1,8 +1,6 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
 use AdammBalogh\KeyValueStore\Exception\NotImplementedException;
-use AdammBalogh\KeyValueStore\Exception\InternalException;
-use Flintstone\FlintstoneException;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -14,20 +12,18 @@ trait KeyTrait
     /**
      * @param string $key
      *
-     * @return bool True if the deletion was successful, false if it was unsuccessful.
+     * @return bool True if the deletion was successful, false if the deletion was unsuccessful.
      *
-     * @throws InternalException
+     * @throws \Exception
      */
     public function delete($key)
     {
-        try {
-            return $this->getClient()->delete($key);
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
-        }
+        return $this->getClient()->delete($key);
     }
 
     /**
+     * Not implemented.
+     *
      * @param string $key
      * @param int $seconds
      *
@@ -39,6 +35,8 @@ trait KeyTrait
     }
 
     /**
+     * Not implemented.
+     *
      * @param string $key
      * @param int $timestamp
      *
@@ -51,6 +49,8 @@ trait KeyTrait
 
     /**
      * @return array
+     *
+     * @throws \Exception
      */
     public function getKeys()
     {
@@ -58,6 +58,8 @@ trait KeyTrait
     }
 
     /**
+     * Not implemented.
+     *
      * Returns the remaining time to live of a key that has a timeout.
      *
      * @param string $key
@@ -73,19 +75,17 @@ trait KeyTrait
      * @param string $key
      *
      * @return bool True if the key does exist, false if the key does not exist.
-     *
-     * @throws InternalException
+
+     * @throws \Exception
      */
     public function has($key)
     {
-        try {
-            return $this->getClient()->get($key) === false ? false : true;
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
-        }
+        return $this->getClient()->get($key) === false ? false : true;
     }
 
     /**
+     * Not implemented.
+     *
      * Remove the existing timeout on key, turning the key from volatile (a key with an expire set)
      * to persistent (a key that will never expire as no timeout is associated).
      *

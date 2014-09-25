@@ -25,7 +25,9 @@ class FileAdapterKeyTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\NotImplementedException
+     * Not implemented.
+     *
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
      */
     public function testExpire()
     {
@@ -33,7 +35,9 @@ class FileAdapterKeyTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\NotImplementedException
+     * Not implemented.
+     *
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
      */
     public function testExpireAt()
     {
@@ -53,7 +57,9 @@ class FileAdapterKeyTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\NotImplementedException
+     * Not implemented.
+     *
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
      */
     public function testGetTtl()
     {
@@ -78,7 +84,9 @@ class FileAdapterKeyTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\NotImplementedException
+     * Not implemented.
+     *
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
      */
     public function testPersist()
     {

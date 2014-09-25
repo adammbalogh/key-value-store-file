@@ -105,12 +105,9 @@ class FileAdapterStringTest extends AbstractTestCase
         $this->assertTrue($this->kvs->setIfNotExists('key', 'value'));
     }
 
-    /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\KeyAlreadyExistsException
-     */
     public function testSetIfNotExistsWithAlreadyExistsKey()
     {
         $this->kvs->set('key', 'value');
-        $this->kvs->setIfNotExists('key', 'value');
+        $this->assertFalse($this->kvs->setIfNotExists('key', 'value'));
     }
 }

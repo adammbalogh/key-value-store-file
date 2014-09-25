@@ -1,9 +1,6 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Exception\InternalException;
-use AdammBalogh\KeyValueStore\Exception\KeyAlreadyExistsException;
 use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
-use Flintstone\FlintstoneException;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -19,7 +16,7 @@ trait StringTrait
      * @return int The length of the string after the append operation.
 
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function append($key, $value)
     {
@@ -35,7 +32,7 @@ trait StringTrait
      * @return int The value of key after the decrement
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function decrement($key)
     {
@@ -49,13 +46,13 @@ trait StringTrait
      * @return int The value of key after the decrement
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function decrementBy($key, $decrement)
     {
         $storedValue = $this->get($key);
         if (!$this->isInteger($storedValue)) {
-            throw new InternalException('The stored value is not an integer.');
+            throw new \Exception('The stored value is not an integer.');
         }
 
         $this->set($key, (string)($storedValue - $decrement));
@@ -69,21 +66,16 @@ trait StringTrait
      * @return string The value of the key
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function get($key)
     {
-        try {
-            $storedValue = $this->getClient()->get($key);
-            if ($storedValue === false) {
-                throw new KeyNotFoundException($key);
-            }
-
-            return $storedValue;
-
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
+        $storedValue = $this->getClient()->get($key);
+        if ($storedValue === false) {
+            throw new KeyNotFoundException($key);
         }
+
+        return $storedValue;
     }
 
     /**
@@ -92,7 +84,7 @@ trait StringTrait
      * @return int
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function getValueLength($key)
     {
@@ -105,7 +97,7 @@ trait StringTrait
      * @return int The value of key after the increment
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function increment($key)
     {
@@ -119,13 +111,13 @@ trait StringTrait
      * @return int The value of key after the increment
      *
      * @throws KeyNotFoundException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function incrementBy($key, $increment)
     {
         $storedValue = $this->get($key);
         if (!$this->isInteger($storedValue)) {
-            throw new InternalException('The stored value is not an integer.');
+            throw new \Exception('The stored value is not an integer.');
         }
 
         $this->set($key, (string)($storedValue + $increment));
@@ -139,15 +131,11 @@ trait StringTrait
      *
      * @return bool True if the set was successful, false if it was unsuccessful
      *
-     * @throws InternalException
+     * @throws \Exception
      */
     public function set($key, $value)
     {
-        try {
-            return $this->getClient()->set($key, $value);
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
-        }
+        return $this->getClient()->set($key, $value);
     }
 
     /**
@@ -156,14 +144,13 @@ trait StringTrait
      *
      * @return bool True if the set was successful, false if it was unsuccessful
      *
-     * @throws KeyAlreadyExistsException
-     * @throws InternalException
+     * @throws \Exception
      */
     public function setIfNotExists($key, $value)
     {
         $storedValue = $this->getClient()->get($key);
         if ($storedValue !== false) {
-            throw new KeyAlreadyExistsException($key);
+            return false;
         }
 
         return $this->set($key, $value);

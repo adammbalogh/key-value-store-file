@@ -1,23 +1,16 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Exception\InternalException;
-use Flintstone\FlintstoneException;
-
 trait ServerTrait
 {
     use ClientTrait;
 
     /**
-     * @return bool True if the persist was success, false if the persis was unsuccessful.
+     * @return void
      *
-     * @throws InternalException
+     * @throws \Exception
      */
     public function flush()
     {
-        try {
-            return $this->getClient()->flush();
-        } catch (FlintstoneException $e) {
-            throw new InternalException('', 0, $e);
-        }
+        $this->getClient()->flush();
     }
 }

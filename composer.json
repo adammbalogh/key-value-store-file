@@ -1,6 +1,6 @@
 {
     "name": "adammbalogh/key-value-store-file",
-    "description": "Key-value file store through the fire015/flintstone package.",
+    "description": "Key-value file store through fire015/flintstone package.",
     "keywords": ["key", "value", "key-value", "store", "nosql", "file", "key-value-file", "flintstone"],
     "license": "MIT",
     "type": "library",
