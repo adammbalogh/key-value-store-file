@@ -1,6 +1,7 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Exception\NotImplementedException;
+use AdammBalogh\KeyValueStore\Adapter\Helper;
+use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -22,29 +23,22 @@ trait KeyTrait
     }
 
     /**
-     * Not implemented.
-     *
      * @param string $key
      * @param int $seconds
      *
-     * @throws NotImplementedException
+     * @return bool True if the timeout was set, false if the timeout could not be set.
+     *
+     * @throws \Exception
      */
     public function expire($key, $seconds)
     {
-        throw new NotImplementedException();
-    }
+        try {
+            $value = $this->get($key);
+        } catch (KeyNotFoundException $e) {
+            return false;
+        }
 
-    /**
-     * Not implemented.
-     *
-     * @param string $key
-     * @param int $timestamp
-     *
-     * @throws NotImplementedException
-     */
-    public function expireAt($key, $timestamp)
-    {
-        throw new NotImplementedException();
+        return $this->set($key, Helper::getDataWithExpire($value, $seconds, time()));
     }
 
     /**
@@ -58,17 +52,25 @@ trait KeyTrait
     }
 
     /**
-     * Not implemented.
-     *
      * Returns the remaining time to live of a key that has a timeout.
      *
      * @param string $key
      *
-     * @throws NotImplementedException
+     * @return int Ttl in seconds
+     *
+     * @throws KeyNotFoundException
+     * @throws \Exception
      */
     public function getTtl($key)
     {
-        throw new NotImplementedException();
+        $getResult = $this->getValue($key);
+        $unserialized = @unserialize($getResult);
+
+        if (!Helper::hasInternalExpireTime($unserialized)) {
+            throw new \Exception('Cannot retrieve ttl');
+        }
+
+        return $unserialized['ts'] + $unserialized['s'] - time();
     }
 
     /**
@@ -80,21 +82,34 @@ trait KeyTrait
      */
     public function has($key)
     {
-        return $this->getClient()->get($key) === false ? false : true;
+        try {
+            $this->get($key);
+        } catch (KeyNotFoundException $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * Not implemented.
-     *
      * Remove the existing timeout on key, turning the key from volatile (a key with an expire set)
      * to persistent (a key that will never expire as no timeout is associated).
      *
      * @param string $key
      *
-     * @throws NotImplementedException
+     * @return bool True if the persist was success, false if the persis was unsuccessful.
+     *
+     * @throws \Exception
      */
     public function persist($key)
     {
-        throw new NotImplementedException();
+        $getResult = $this->getValue($key);
+        $unserialized = @unserialize($getResult);
+
+        if (!Helper::hasInternalExpireTime($unserialized)) {
+            throw new \Exception("{$key} has no associated timeout");
+        }
+
+        return $this->set($key, $unserialized['v']);
     }
 }

@@ -24,24 +24,21 @@ class FileAdapterKeyTest extends AbstractTestCase
         $this->kvs->delete(str_repeat('a', 2048));
     }
 
-    /**
-     * Not implemented.
-     *
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
-     */
     public function testExpire()
     {
-        $this->kvs->expire('key', 10);
+        $this->kvs->set('key', 'value');
+        $this->assertTrue($this->kvs->expire('key', 1));
+
+        $this->assertTrue($this->kvs->has('key'));
+
+        sleep(3);
+
+        $this->assertFalse($this->kvs->has('key'));
     }
 
-    /**
-     * Not implemented.
-     *
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
-     */
-    public function testExpireAt()
+    public function testExpireWithNotExistedKey()
     {
-        $this->kvs->expireAt('key', time());
+        $this->assertFalse($this->kvs->expire('key', 1));
     }
 
     public function testGetKeysWithEmpty()
@@ -56,13 +53,21 @@ class FileAdapterKeyTest extends AbstractTestCase
         $this->assertCount(1, $this->kvs->getKeys());
     }
 
-    /**
-     * Not implemented.
-     *
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
-     */
     public function testGetTtl()
     {
+        $this->kvs->set('key', 'value');
+        $this->kvs->expire('key', 10);
+
+        $this->assertGreaterThan(0, $this->kvs->getTtl('key'));
+    }
+
+    /**
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
+     */
+    public function testGetTtlOnPersistentKey()
+    {
+        $this->kvs->set('key', 'value');
+
         $this->kvs->getTtl('key');
     }
 
@@ -83,13 +88,21 @@ class FileAdapterKeyTest extends AbstractTestCase
         $this->kvs->has(str_repeat('a', 2048));
     }
 
-    /**
-     * Not implemented.
-     *
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
-     */
     public function testPersist()
     {
-        $this->kvs->persist('key');
+        $this->kvs->set('key', 'value');
+        $this->kvs->expire('key', 1);
+
+        $this->assertTrue($this->kvs->persist('key'));
+    }
+
+    /**
+     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
+     */
+    public function testPersistWithPersistentKey()
+    {
+        $this->kvs->set('key', 'value');
+
+        $this->assertTrue($this->kvs->persist('key'));
     }
 }

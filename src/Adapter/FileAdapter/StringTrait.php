@@ -1,5 +1,6 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
+use AdammBalogh\KeyValueStore\Adapter\Helper;
 use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
 
 /**
@@ -50,14 +51,7 @@ trait StringTrait
      */
     public function decrementBy($key, $decrement)
     {
-        $storedValue = $this->get($key);
-        if (!$this->isInteger($storedValue)) {
-            throw new \Exception('The stored value is not an integer.');
-        }
-
-        $this->set($key, (string)($storedValue - $decrement));
-
-        return $storedValue - $decrement;
+        return $this->incrementBy($key, -$decrement);
     }
 
     /**
@@ -70,12 +64,20 @@ trait StringTrait
      */
     public function get($key)
     {
-        $storedValue = $this->getClient()->get($key);
-        if ($storedValue === false) {
-            throw new KeyNotFoundException($key);
+        $getResult = $this->getValue($key);
+        $unserialized = @unserialize($getResult);
+
+        if (Helper::hasInternalExpireTime($unserialized)) {
+
+            if (0 > $unserialized['ts'] + $unserialized['s'] - time()) {
+                $this->delete($key);
+                throw new KeyNotFoundException();
+            }
+
+            $getResult = $unserialized['v'];
         }
 
-        return $storedValue;
+        return $getResult;
     }
 
     /**
@@ -116,9 +118,8 @@ trait StringTrait
     public function incrementBy($key, $increment)
     {
         $storedValue = $this->get($key);
-        if (!$this->isInteger($storedValue)) {
-            throw new \Exception('The stored value is not an integer.');
-        }
+
+        Helper::checkInteger($storedValue);
 
         $this->set($key, (string)($storedValue + $increment));
 
@@ -148,8 +149,7 @@ trait StringTrait
      */
     public function setIfNotExists($key, $value)
     {
-        $storedValue = $this->getClient()->get($key);
-        if ($storedValue !== false) {
+        if ($this->has($key)) {
             return false;
         }
 
@@ -157,15 +157,19 @@ trait StringTrait
     }
 
     /**
-     * @param mixed $number
+     * @param string $key
      *
-     * @return bool
+     * @return string
+     * @throws KeyNotFoundException
+     * @throws \Exception
      */
-    private function isInteger($number)
+    protected function getValue($key)
     {
-        if (is_numeric($number) && is_integer($number + 0)) {
-            return true;
+        $getResult = $this->getClient()->get($key);
+        if ($getResult === false) {
+            throw new KeyNotFoundException($key);
         }
-        return false;
+
+        return $getResult;
     }
 }

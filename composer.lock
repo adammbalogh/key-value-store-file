@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "08c83021b40c424ee327bcfa9fd269f7",
+    "hash": "b5b2036f8122700d507bf119e068e07f",
     "packages": [
         {
             "name": "adammbalogh/key-value-store",
-            "version": "0.2.1",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adammbalogh/key-value-store.git",
-                "reference": "49f57eb1f8e5f9f6e7393149150375b9005f21b6"
+                "reference": "ac54bcd217323634219a16a1e8c30e51ec28ee38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/49f57eb1f8e5f9f6e7393149150375b9005f21b6",
-                "reference": "49f57eb1f8e5f9f6e7393149150375b9005f21b6",
+                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/ac54bcd217323634219a16a1e8c30e51ec28ee38",
+                "reference": "ac54bcd217323634219a16a1e8c30e51ec28ee38",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "store",
                 "value"
             ],
-            "time": "2014-09-25 18:24:34"
+            "time": "2014-09-26 17:52:07"
         },
         {
             "name": "fire015/flintstone",
@@ -1112,16 +1112,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "4097e2c106e4a32bc234ae880e5585a19137e435"
+                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4097e2c106e4a32bc234ae880e5585a19137e435",
-                "reference": "4097e2c106e4a32bc234ae880e5585a19137e435",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5d973e59cf58a0c847f298de84374c96b42b17b3",
+                "reference": "5d973e59cf58a0c847f298de84374c96b42b17b3",
                 "shasum": ""
             },
             "require": {
@@ -1183,7 +1183,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-08-05 23:54:05"
+            "time": "2014-09-25 03:33:46"
         },
         {
             "name": "symfony/config",
