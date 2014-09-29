@@ -9,6 +9,49 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/603b6684-cd0a-4ce3-902c-81a840780554/small.png)](https://insight.sensiolabs.com/projects/603b6684-cd0a-4ce3-902c-81a840780554)
 
+# Description
+
+This library provides a layer to a key value file store.
+
+It uses the [fire015/flintstone](https://github.com/fire015/flintstone) package.
+
 # Support
 
 [![Support with Gittip](http://img.shields.io/gittip/adammbalogh.svg?style=flat)](https://www.gittip.com/adammbalogh/)
+
+# Usage
+
+```php
+<?php
+use AdammBalogh\KeyValueStore\KeyValueStore;
+use AdammBalogh\KeyValueStore\Adapter\FileAdapter as Adapter;
+use Flintstone\Flintstone;
+
+$fileClient = Flintstone::load('usersDatabase', ['dir' => '/tmp']);
+
+$adapter = new Adapter($fileClient);
+
+$kvs = new KeyValueStore($adapter);
+
+$kvs->set('sample_key', 'Sample value');
+$kvs->get('sample_key');
+```
+
+# Installation
+
+Install it through composer.
+
+```json
+{
+    "require": {
+        "adammbalogh/key-value-store-file": "@stable"
+    }
+}
+```
+
+**tip:** you should browse the [`adammbalogh/key-value-store-file`](https://packagist.org/packages/adammbalogh/key-value-store-file)
+page to choose a stable version to use, avoid the `@stable` meta constraint.
+
+# API
+
+**Please visit the [API](https://github.com/adammbalogh/key-value-store/blob/master/readme.md#api) link in the abstract library.**
