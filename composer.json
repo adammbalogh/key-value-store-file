@@ -15,7 +15,7 @@
     "require": {
         "php": ">=5.4.0",
         "adammbalogh/key-value-store": "~0.3",
-        "fire015/flintstone": "~1.5"
+        "fire015/flintstone": "~1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.2.5",
