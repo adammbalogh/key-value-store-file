@@ -69,10 +69,7 @@ trait StringTrait
 
         if (Helper::hasInternalExpireTime($unserialized)) {
 
-            if (0 > $unserialized['ts'] + $unserialized['s'] - time()) {
-                $this->delete($key);
-                throw new KeyNotFoundException();
-            }
+            $this->handleTtl($key, $unserialized['ts'], $unserialized['s']);
 
             $getResult = $unserialized['v'];
         }
@@ -171,5 +168,27 @@ trait StringTrait
         }
 
         return $getResult;
+    }
+
+    /**
+     * If ttl is lesser or equals 0 delete key.
+     *
+     * @param string $key
+     * @param int $expireSetTs
+     * @param int $expireSec
+     *
+     * @return int ttl
+     *
+     * @throws KeyNotFoundException
+     */
+    protected function handleTtl($key, $expireSetTs, $expireSec)
+    {
+        $ttl = $expireSetTs + $expireSec - time();
+        if ($ttl <= 0) {
+            $this->delete($key);
+            throw new KeyNotFoundException();
+        }
+
+        return $ttl;
     }
 }

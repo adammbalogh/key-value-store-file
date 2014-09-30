@@ -70,7 +70,7 @@ trait KeyTrait
             throw new \Exception('Cannot retrieve ttl');
         }
 
-        return $unserialized['ts'] + $unserialized['s'] - time();
+        return $this->handleTtl($key, $unserialized['ts'], $unserialized['s']);
     }
 
     /**
@@ -108,6 +108,12 @@ trait KeyTrait
 
         if (!Helper::hasInternalExpireTime($unserialized)) {
             throw new \Exception("{$key} has no associated timeout");
+        }
+
+        try {
+            $this->handleTtl($key, $unserialized['ts'], $unserialized['s']);
+        } catch (KeyNotFoundException $e) {
+            return false;
         }
 
         return $this->set($key, $unserialized['v']);

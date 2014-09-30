@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1515e720fe268fbf6ad4f8a325353aa7",
+    "hash": "c4995a07462db44b8fa2d421c74a74a5",
     "packages": [
         {
             "name": "adammbalogh/key-value-store",
