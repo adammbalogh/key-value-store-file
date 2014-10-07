@@ -103,7 +103,12 @@ trait KeyTrait
      */
     public function persist($key)
     {
-        $getResult = $this->getValue($key);
+        try {
+            $getResult = $this->getValue($key);
+        } catch (KeyNotFoundException $e) {
+            return false;
+        }
+
         $unserialized = @unserialize($getResult);
 
         if (!Helper::hasInternalExpireTime($unserialized)) {

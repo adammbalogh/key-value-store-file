@@ -105,4 +105,17 @@ class FileAdapterKeyTest extends AbstractTestCase
 
         $this->assertTrue($this->kvs->persist('key'));
     }
+
+    public function testPersistWithNotExistingKey()
+    {
+        $this->assertFalse($this->kvs->persist('key'));
+    }
+
+    public function testPersistWithExpiredKey()
+    {
+        $this->kvs->set('key', 'value');
+        $this->kvs->expire('key', 0);
+
+        $this->assertFalse($this->kvs->persist('key'));
+    }
 }
