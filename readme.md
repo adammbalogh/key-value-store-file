@@ -51,7 +51,7 @@ $kvs->get('sample_key');
 
 # API
 
-**Please visit the [API](https://github.com/adammbalogh/key-value-store/readme.md#api) link in the abstract library.**
+**Please visit the [API](https://github.com/adammbalogh/key-value-store#api) link in the abstract library.**
 
 # Support
 
