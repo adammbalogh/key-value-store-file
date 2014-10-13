@@ -1,6 +1,6 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Adapter\Helper;
+use AdammBalogh\KeyValueStore\Adapter\Util;
 use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
 
 /**
@@ -38,7 +38,7 @@ trait KeyTrait
             return false;
         }
 
-        return $this->set($key, Helper::getDataWithExpire($value, $seconds, time()));
+        return $this->set($key, Util::getDataWithExpire($value, $seconds, time()));
     }
 
     /**
@@ -66,7 +66,7 @@ trait KeyTrait
         $getResult = $this->getValue($key);
         $unserialized = @unserialize($getResult);
 
-        if (!Helper::hasInternalExpireTime($unserialized)) {
+        if (!Util::hasInternalExpireTime($unserialized)) {
             throw new \Exception('Cannot retrieve ttl');
         }
 
@@ -111,7 +111,7 @@ trait KeyTrait
 
         $unserialized = @unserialize($getResult);
 
-        if (!Helper::hasInternalExpireTime($unserialized)) {
+        if (!Util::hasInternalExpireTime($unserialized)) {
             throw new \Exception("{$key} has no associated timeout");
         }
 

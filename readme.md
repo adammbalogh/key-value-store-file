@@ -16,6 +16,8 @@ This library provides a layer to a key value file store.
 
 It uses the [fire015/flintstone](https://github.com/fire015/flintstone) package.
 
+Check out the [abstract library](https://github.com/adammbalogh/key-value-store) to see the other adapters and the Api.
+
 # Installation
 
 Install it through composer.
@@ -52,6 +54,20 @@ $kvs->get('sample_key');
 # API
 
 **Please visit the [API](https://github.com/adammbalogh/key-value-store#api) link in the abstract library.**
+
+# Toolset
+
+| Key                 | String              | Server           |
+|------------------   |---------------------|------------------|
+| ✔ delete            | ✔ append            | ✔ flush          |
+| ✔ expire            | ✔ decrement         |                  |
+| ✔ getKeys           | ✔ decrementBy       |                  |
+| ✔ getTtl            | ✔ get               |                  |
+| ✔ has               | ✔ getValueLength    |                  |
+| ✔ persist           | ✔ increment         |                  |
+|                     | ✔ incrementBy       |                  |
+|                     | ✔ set               |                  |
+|                     | ✔ setIfNotExists    |                  |
 
 # Support
 

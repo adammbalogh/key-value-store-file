@@ -1,6 +1,6 @@
 <?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\Adapter\Helper;
+use AdammBalogh\KeyValueStore\Adapter\Util;
 use AdammBalogh\KeyValueStore\Exception\KeyNotFoundException;
 
 /**
@@ -67,7 +67,7 @@ trait StringTrait
         $getResult = $this->getValue($key);
         $unserialized = @unserialize($getResult);
 
-        if (Helper::hasInternalExpireTime($unserialized)) {
+        if (Util::hasInternalExpireTime($unserialized)) {
 
             $this->handleTtl($key, $unserialized['ts'], $unserialized['s']);
 
@@ -116,7 +116,7 @@ trait StringTrait
     {
         $storedValue = $this->get($key);
 
-        Helper::checkInteger($storedValue);
+        Util::checkInteger($storedValue);
 
         $this->set($key, (string)($storedValue + $increment));
 
