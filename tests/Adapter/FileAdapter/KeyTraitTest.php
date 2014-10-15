@@ -2,18 +2,17 @@
 
 use AdammBalogh\KeyValueStore\AbstractTestCase;
 
-class FileAdapterKeyTest extends AbstractTestCase
+class KeyTraitTest extends AbstractTestCase
 {
     public function testDelete()
     {
         $this->kvs->set('key', 'value');
-        $this->kvs->set('key1', 'value2');
 
-        $this->assertCount(2, $this->kvs->getKeys());
+        $this->assertTrue($this->kvs->has('key'));
 
-        $this->kvs->delete('key1');
+        $this->kvs->delete('key');
 
-        $this->assertCount(1, $this->kvs->getKeys());
+        $this->assertFalse($this->kvs->has('key'));
     }
 
     /**
@@ -39,18 +38,6 @@ class FileAdapterKeyTest extends AbstractTestCase
     public function testExpireWithNotExistedKey()
     {
         $this->assertFalse($this->kvs->expire('key', 1));
-    }
-
-    public function testGetKeysWithEmpty()
-    {
-        $this->assertCount(0, $this->kvs->getKeys());
-    }
-
-    public function testGetKeysWithNotEmpty()
-    {
-        $this->kvs->set('key', 'value');
-
-        $this->assertCount(1, $this->kvs->getKeys());
     }
 
     public function testGetTtl()

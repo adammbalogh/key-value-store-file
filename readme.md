@@ -49,6 +49,7 @@ $kvs = new KeyValueStore($adapter);
 
 $kvs->set('sample_key', 'Sample value');
 $kvs->get('sample_key');
+$kvs->delete('sample_key');
 ```
 
 # API
@@ -57,17 +58,13 @@ $kvs->get('sample_key');
 
 # Toolset
 
-| Key                 | String              | Server           |
+| Key                 | Value               | Server           |
 |------------------   |---------------------|------------------|
-| ✔ delete            | ✔ append            | ✔ flush          |
-| ✔ expire            | ✔ decrement         |                  |
-| ✔ getKeys           | ✔ decrementBy       |                  |
-| ✔ getTtl            | ✔ get               |                  |
-| ✔ has               | ✔ getValueLength    |                  |
-| ✔ persist           | ✔ increment         |                  |
-|                     | ✔ incrementBy       |                  |
-|                     | ✔ set               |                  |
-|                     | ✔ setIfNotExists    |                  |
+| ✔ delete            | ✔ get               | ✔ flush          |
+| ✔ expire            | ✔ set               |                  |
+| ✔ getTtl            |                     |                  |
+| ✔ has               |                     |                  |
+| ✔ persist           |                     |                  |
 
 # Support
 

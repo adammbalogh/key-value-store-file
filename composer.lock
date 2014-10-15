@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e285186757e107025d06ad132413f94c",
+    "hash": "e5b05260fb848fe3b8e66d6604565dbe",
     "packages": [
         {
             "name": "adammbalogh/key-value-store",
-            "version": "0.4.0",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adammbalogh/key-value-store.git",
-                "reference": "97e67e9cfe8011722ee1d74578dc97e6e4328e84"
+                "reference": "74b058eb48880ea97622b1f63f3259b35b122a6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/97e67e9cfe8011722ee1d74578dc97e6e4328e84",
-                "reference": "97e67e9cfe8011722ee1d74578dc97e6e4328e84",
+                "url": "https://api.github.com/repos/adammbalogh/key-value-store/zipball/74b058eb48880ea97622b1f63f3259b35b122a6c",
+                "reference": "74b058eb48880ea97622b1f63f3259b35b122a6c",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "store",
                 "value"
             ],
-            "time": "2014-10-13 16:30:14"
+            "time": "2014-10-15 22:09:46"
         },
         {
             "name": "fire015/flintstone",

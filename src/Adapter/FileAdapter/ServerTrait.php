@@ -5,9 +5,11 @@ trait ServerTrait
     use ClientTrait;
 
     /**
+     * Removes all keys.
+     *
      * @return void
      *
-     * @throws \Exception
+     * @throws \AdammBalogh\KeyValueStore\Exception\InternalException
      */
     public function flush()
     {

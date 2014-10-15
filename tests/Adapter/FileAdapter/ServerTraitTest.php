@@ -5,18 +5,17 @@ use AdammBalogh\KeyValueStore\KeyValueStore;
 use Flintstone\Flintstone;
 use org\bovigo\vfs\vfsStream;
 
-class FileAdapterServerTest extends AbstractTestCase
+class ServerTraitTest extends AbstractTestCase
 {
     public function testFlush()
     {
         $this->kvs->set('key', 'value');
-        $this->kvs->set('key1', 'value1');
 
-        $this->assertCount(2, $this->kvs->getKeys());
+        $this->assertTrue($this->kvs->has('key'));
 
         $this->kvs->flush();
 
-        $this->assertCount(0, $this->kvs->getKeys());
+        $this->assertFalse($this->kvs->has('key'));
     }
 
     /**

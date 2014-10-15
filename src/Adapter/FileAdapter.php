@@ -2,15 +2,15 @@
 
 use AdammBalogh\KeyValueStore\Adapter\FileAdapter\ClientTrait;
 use AdammBalogh\KeyValueStore\Adapter\FileAdapter\KeyTrait;
+use AdammBalogh\KeyValueStore\Adapter\FileAdapter\ValueTrait;
 use AdammBalogh\KeyValueStore\Adapter\FileAdapter\ServerTrait;
-use AdammBalogh\KeyValueStore\Adapter\FileAdapter\StringTrait;
 use Flintstone\FlintstoneDB;
 
 class FileAdapter extends AbstractAdapter
 {
-    use ClientTrait, KeyTrait, StringTrait, ServerTrait {
+    use ClientTrait, KeyTrait, ValueTrait, ServerTrait {
         ClientTrait::getClient insteadof KeyTrait;
-        ClientTrait::getClient insteadof StringTrait;
+        ClientTrait::getClient insteadof ValueTrait;
         ClientTrait::getClient insteadof ServerTrait;
     }
 
