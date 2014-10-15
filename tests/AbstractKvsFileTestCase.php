@@ -4,7 +4,7 @@ use org\bovigo\vfs\vfsStream;
 use Flintstone\Flintstone;
 use AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractKvsFileTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var KeyValueStore

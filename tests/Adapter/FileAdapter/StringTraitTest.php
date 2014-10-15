@@ -1,8 +1,8 @@
-<?php namespace AdammBalogh\KeyValueStore\Adapter;
+<?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\AbstractTestCase;
+use AdammBalogh\KeyValueStore\AbstractKvsFileTestCase;
 
-class StringTraitTest extends AbstractTestCase
+class StringTraitKvsFileTest extends AbstractKvsFileTestCase
 {
     public function testGet()
     {

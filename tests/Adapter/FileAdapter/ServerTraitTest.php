@@ -1,11 +1,12 @@
-<?php namespace AdammBalogh\KeyValueStore\Adapter;
+<?php namespace AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 
-use AdammBalogh\KeyValueStore\AbstractTestCase;
+use AdammBalogh\KeyValueStore\AbstractKvsFileTestCase;
+use AdammBalogh\KeyValueStore\Adapter\FileAdapter;
 use AdammBalogh\KeyValueStore\KeyValueStore;
 use Flintstone\Flintstone;
 use org\bovigo\vfs\vfsStream;
 
-class ServerTraitTest extends AbstractTestCase
+class ServerTraitKvsFileTest extends AbstractKvsFileTestCase
 {
     public function testFlush()
     {
