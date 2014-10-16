@@ -9,7 +9,7 @@ trait ServerTrait
      *
      * @return void
      *
-     * @throws \AdammBalogh\KeyValueStore\Exception\InternalException
+     * @throws \Exception
      */
     public function flush()
     {

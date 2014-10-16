@@ -2,7 +2,7 @@
 
 use AdammBalogh\KeyValueStore\AbstractKvsFileTestCase;
 
-class StringTraitKvsFileTest extends AbstractKvsFileTestCase
+class ValueTraitKvsFileTest extends AbstractKvsFileTestCase
 {
     public function testGet()
     {
