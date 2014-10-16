@@ -21,6 +21,12 @@ trait KeyTrait
      */
     public function delete($key)
     {
+        try {
+            $this->get($key);
+        } catch (KeyNotFoundException $e) {
+            return false;
+        }
+
         return $this->getClient()->delete($key);
     }
 

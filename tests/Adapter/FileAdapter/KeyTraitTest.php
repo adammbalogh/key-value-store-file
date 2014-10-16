@@ -23,6 +23,16 @@ class KeyTraitKvsFileTest extends AbstractKvsFileTestCase
         $this->kvs->delete(str_repeat('a', 2048));
     }
 
+    public function testDeleteExpiredKey()
+    {
+        $this->kvs->set('key', 'value');
+        $this->kvs->expire('key', 1);
+
+        sleep(2);
+
+        $this->assertFalse($this->kvs->delete('key'));
+    }
+
     public function testExpire()
     {
         $this->kvs->set('key', 'value');

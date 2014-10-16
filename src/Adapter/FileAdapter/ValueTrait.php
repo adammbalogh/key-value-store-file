@@ -82,7 +82,7 @@ trait ValueTrait
     {
         $ttl = $expireSetTs + $expireSec - time();
         if ($ttl <= 0) {
-            $this->delete($key);
+            $this->getClient()->delete($key);
             throw new KeyNotFoundException();
         }
 
