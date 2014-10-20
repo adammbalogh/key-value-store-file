@@ -93,14 +93,11 @@ class KeyTraitKvsFileTest extends AbstractKvsFileTestCase
         $this->assertTrue($this->kvs->persist('key'));
     }
 
-    /**
-     * @expectedException \AdammBalogh\KeyValueStore\Exception\InternalException
-     */
-    public function testPersistWithPersistentKey()
+    public function testPersistWithNonPersistentKey()
     {
         $this->kvs->set('key', 'value');
 
-        $this->assertTrue($this->kvs->persist('key'));
+        $this->assertFalse($this->kvs->persist('key'));
     }
 
     public function testPersistWithNotExistingKey()
